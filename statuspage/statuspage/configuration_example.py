@@ -11,42 +11,32 @@ ALLOWED_HOSTS = []
 # PostgreSQL database configuration. See the Django documentation for a complete list of available parameters:
 #   https://docs.djangoproject.com/en/stable/ref/settings/#databases
 DATABASE = {
-    'NAME': 'status-page',         # Database name
-    'USER': '',               # PostgreSQL username
-    'PASSWORD': '',           # PostgreSQL password
-    'HOST': 'localhost',      # Database server
-    'PORT': '',               # Database port (leave blank for default)
-    'CONN_MAX_AGE': 300,      # Max database connection age
+    DATABASE = {
+    'NAME': 'statuspage',          # Database name
+    'USER': 'statuspage',          # PostgreSQL username
+    'PASSWORD': 'abcdefgh123456',   # PostgreSQL password
+    'HOST': 'final-project-rds.cif0hsao99dj.us-west-1.rds.amazonaws.com',            # Database server
+    'PORT': '5432',                     # Database port (leave blank for default)
+    'CONN_MAX_AGE': 300,            # Max database connection age (seconds)
+}
 }
 
 # Redis database settings. Redis is used for caching and for queuing background tasks. A separate configuration exists
 # for each. Full connection details are required.
 REDIS = {
     'tasks': {
-        'HOST': 'localhost',
-        'PORT': 6379,
-        # Comment out `HOST` and `PORT` lines and uncomment the following if using Redis Sentinel
-        # 'SENTINELS': [('mysentinel.redis.example.com', 6379)],
-        # 'SENTINEL_SERVICE': 'status-page',
-        'PASSWORD': '',
-        'DATABASE': 0,
-        'SSL': False,
-        # Set this to True to skip TLS certificate verification
-        # This can expose the connection to attacks, be careful
-        # 'INSECURE_SKIP_TLS_VERIFY': False,
+        'HOST': 'localhost',      # Redis server
+        'PORT': 6379,             # Redis port
+        'PASSWORD': '',           # Redis password (optional)
+        'DATABASE': 0,            # Database ID
+        'SSL': False,             # Use SSL (optional)
     },
     'caching': {
         'HOST': 'localhost',
         'PORT': 6379,
-        # Comment out `HOST` and `PORT` lines and uncomment the following if using Redis Sentinel
-        # 'SENTINELS': [('mysentinel.redis.example.com', 6379)],
-        # 'SENTINEL_SERVICE': 'netbox',
         'PASSWORD': '',
-        'DATABASE': 1,
+        'DATABASE': 1,            # Unique ID for second database
         'SSL': False,
-        # Set this to True to skip TLS certificate verification
-        # This can expose the connection to attacks, be careful
-        # 'INSECURE_SKIP_TLS_VERIFY': False,
     }
 }
 
@@ -57,7 +47,7 @@ SITE_URL = ""
 # For optimal security, SECRET_KEY should be at least 50 characters in length and contain a mix of letters, numbers, and
 # symbols. Status-Page will not run without this defined. For more information, see
 # https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-SECRET_KEY
-SECRET_KEY = ''
+#SECRET_KEY = ''
 
 #
 # Optional Settings
