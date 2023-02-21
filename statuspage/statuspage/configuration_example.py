@@ -11,8 +11,8 @@ ALLOWED_HOSTS = []
 # PostgreSQL database configuration. See the Django documentation for a complete list of available parameters:
 #   https://docs.djangoproject.com/en/stable/ref/settings/#databases
 DATABASE = {
-    'NAME': 'status-page',          # Database name
-    'USER': 'status-page',          # PostgreSQL username
+    'NAME': 'statuspage',          # Database name
+    'USER': 'statuspage',          # PostgreSQL username
     'PASSWORD': 'abcdefgh123456',   # PostgreSQL password
     'HOST': 'final-project-rds.cif0hsao99dj.us-west-1.rds.amazonaws.com',            # Database server
     'PORT': '5432',                     # Database port (leave blank for default)
