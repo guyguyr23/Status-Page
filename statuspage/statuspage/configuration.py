@@ -24,15 +24,13 @@ DATABASE = {
 REDIS = {
     'tasks': {
         'HOST': 'final-project-001.eqy8yf.0001.usw1.cache.amazonaws.com:6379',      # Redis server
-        'PORT': 6379,             # Redis port
-        'PASSWORD': '',           # Redis password (optional)
+        'PORT': 6379,             # Redis port          # Redis password (optional)
         'DATABASE': 0,            # Database ID
         'SSL': False,             # Use SSL (optional)
     },
     'caching': {
         'HOST': 'final-project-001.eqy8yf.0001.usw1.cache.amazonaws.com:6379',
         'PORT': 6379,
-        'PASSWORD': '',
         'DATABASE': 1,            # Unique ID for second database
         'SSL': False,
     }
