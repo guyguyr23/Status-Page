@@ -6,7 +6,7 @@
 # write access to the server via any other hostnames. The first FQDN in the list will be treated as the preferred name.
 #
 # Example: ALLOWED_HOSTS = ['status-page.example.com', 'status-page.internal.local']
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # PostgreSQL database configuration. See the Django documentation for a complete list of available parameters:
 #   https://docs.djangoproject.com/en/stable/ref/settings/#databases
@@ -23,14 +23,14 @@ DATABASE = {
 # for each. Full connection details are required.
 REDIS = {
     'tasks': {
-        'HOST': 'localhost',      # Redis server
+        'HOST': 'clustercfg.final-project-redis.eqy8yf.memorydb.us-west-1.amazonaws.com:6379',      # Redis server
         'PORT': 6379,             # Redis port
         'PASSWORD': '',           # Redis password (optional)
         'DATABASE': 0,            # Database ID
         'SSL': False,             # Use SSL (optional)
     },
     'caching': {
-        'HOST': 'localhost',
+        'HOST': 'clustercfg.final-project-redis.eqy8yf.memorydb.us-west-1.amazonaws.com:6379',
         'PORT': 6379,
         'PASSWORD': '',
         'DATABASE': 1,            # Unique ID for second database
