@@ -23,14 +23,14 @@ DATABASE = {
 # for each. Full connection details are required.
 REDIS = {
     'tasks': {
-        'HOST': 'arn:aws:memorydb:us-west-1:333082661382:cluster/final-project-redis',      # Redis server
+        'HOST': 'clustercfg.final-project-redis.eqy8yf.memorydb.us-west-1.amazonaws.com',      # Redis server
         'PORT': 6379,             # Redis port
         'PASSWORD': '',           # Redis password (optional)
         'DATABASE': 0,            # Database ID
         'SSL': False,             # Use SSL (optional)
     },
     'caching': {
-        'HOST': 'arn:aws:memorydb:us-west-1:333082661382:cluster/final-project-redis',
+        'HOST': 'clustercfg.final-project-redis.eqy8yf.memorydb.us-west-1.amazonaws.com',
         'PORT': 6379,
         'PASSWORD': '',
         'DATABASE': 1,            # Unique ID for second database
