@@ -23,14 +23,14 @@ DATABASE = {
 # for each. Full connection details are required.
 REDIS = {
     'tasks': {
-        'HOST': '18.144.99.245',      # Redis server
+        'HOST': 'replica.final-project.eqy8yf.usw1.cache.amazonaws.com',      # Redis server
         'PORT': 6379,             # Redis port         
         'PASSWORD': '',           # Redis password (optional)
         'DATABASE': 0,            # Database ID
         'SSL': False,             # Use SSL (optional)
     },
     'caching': {
-        'HOST': '18.144.99.245',
+        'HOST': 'replica.final-project.eqy8yf.usw1.cache.amazonaws.com',
         'PORT': 6379,
         'PASSWORD': '',
         'DATABASE': 1,            # Unique ID for second database
