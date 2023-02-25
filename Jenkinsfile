@@ -8,7 +8,7 @@ pipeline {
         stage('Build') { 
             steps { 
                 script{
-                 app = docker.build("dave_private")
+                 app = docker.build("statuspage-image")
                 }
             }
         }
