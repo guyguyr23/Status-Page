@@ -2,7 +2,7 @@
 FROM ubuntu:22.04
 
 #copy files from github-repo
-COPY .. /opt/project
+COPY . /opt/project
 WORKDIR /opt/project/
 
 #install requirements
