@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: project-deployment
+  labels:
+    app: final-project-application
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: final-project-application
+  template:
+    metadata:
+      labels:
+        app: final-project-application
+    spec:
+      containers:
+      - name: final-project-cotainer
+        image: 333082661382.dkr.ecr.us-west-1.amazonaws.com/status_page_image:status_page
+        volumeMounts:
+        - name: application-files
+          mountPath: /opt/
+        ports:
+        - containerPort: 8000
+      - name: nginx-container
+        image: nginx
+        volumeMounts:
+        - name: application-files
+          mountPath: /
+        ports:
+        - containerPort: 80
+      volumes:
+      - name: application-files
+        emptyDir: {}
