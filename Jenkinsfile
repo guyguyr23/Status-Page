@@ -25,11 +25,11 @@ pipeline {
                 sh '''
                 PUBLIC_IP=$(aws ec2 describe-instances --instance-ids i-07e9532a4bc363274 --query "Reservations[0].Instances[0].PublicIpAddress" --output text)
                 '''
-                   sshagent(['client_server']){
-              
-               sh ' ssh  -o StrictHostKeyChecking=no -l ubuntu $PUBLIC_IP ./app_pull_run.sh ' 
+                sshagent(['client_server']){
+                sh ' ssh  -o StrictHostKeyChecking=no -l ubuntu $PUBLIC_IP ./app_pull_run.sh ' 
+                     }
+            
             }
-                
         }
    
        stage('configure aws') {
