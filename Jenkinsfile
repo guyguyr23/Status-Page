@@ -22,7 +22,9 @@ pipeline {
 
         stage('Test'){
             steps {
-                 echo 'Empty'
+                   sshagent(['client_server']){
+               sh 'ssh  -o StrictHostKeyChecking=no -l ubuntu 54.193.104.220 ./app_pull_run.sh '
+                 curl 54.193.104.220:8000
             }
         }
    
