@@ -9,7 +9,7 @@ pipeline {
     }
     stages {
 
-        stage('Build') { 
+        stage('Build and deploy to ECR') { 
             steps { 
                 script{
                  app = docker.build("status_page_image")
@@ -22,15 +22,12 @@ pipeline {
 
         stage('Test'){
             steps {
+                PUBLIC_IP=$(aws ec2 describe-instances --instance-ids i-07e9532a4bc363274 --query "Reservations[0].Instances[0].PublicIpAddress" --output text)
                    sshagent(['client_server']){
               
-               sh ' ssh  -o StrictHostKeyChecking=no -l ubuntu 54.193.104.220 ./app_pull_run.sh '
-              
-               
+               sh ' ssh  -o StrictHostKeyChecking=no -l ubuntu $PUBLIC_IP ./app_pull_run.sh ' 
             }
-                sh '''
-                 curl http://54.193.104.220:8000/
-                 '''
+                
         }
    
        stage('configure aws') {
