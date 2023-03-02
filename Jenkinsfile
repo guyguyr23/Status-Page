@@ -49,7 +49,7 @@ pipeline {
                 sh '''
                 PUBLIC_IP=$(cat ip.txt)
                 aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 333082661382.dkr.ecr.us-west-1.amazonaws.com
-                ssh -i ~/test-servers-key.pem ubuntu@$PUBLIC_IP ./app_test
+                ssh -i ~/test-servers-key.pem ubuntu@$PUBLIC_IP ./app_run_test
                 curl $PUBLIC_IP:8000
                 echo ...
                 ssh -i ~/test-servers-key.pem ubuntu@$PUBLIC_IP sudo kubectl rollout restart deployment project-deployment
