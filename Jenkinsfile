@@ -52,8 +52,8 @@ pipeline {
                 ssh -i ~/test-servers-key.pem ubuntu@$PUBLIC_IP /home/ubuntu/app_run_test
                 curl $PUBLIC_IP:8000
                 echo ...
-                ssh -i ~/test-servers-key.pem ubuntu@$PUBLIC_IP sudo kubectl rollout restart deployment project-deployment
-                
+                scp -i ~/test-servers-key.pem config_files/deployment.yml ubuntu@$PUBLIC_IP:/home/ubuntu/kube_config
+                ssh -i ~/test-servers-key.pem ubuntu@$PUBLIC_IP /home/ubuntu/kube_config/jenkins_CD.sh
                 '''
             }
         }
