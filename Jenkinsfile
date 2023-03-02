@@ -30,16 +30,7 @@ pipeline {
             }
         }
 
-        stage('Test'){
-            steps {
-                sh '''
-                PUBLIC_IP=$(aws ec2 describe-instances --instance-ids i-07e9532a4bc363274 --query "Reservations[0].Instances[0].PublicIpAddress" --output text)
-                ssh -i ~/task-servers-key.pem ubuntu@$PUBLIC_IP ./app_pull_run.sh
-                curl $PUBLIC_IP:8000
-                '''
-                
-            }
-        }
+        
    
        
           stage('get master node public ip') {
@@ -58,6 +49,9 @@ pipeline {
                 sh '''
                 PUBLIC_IP=$(cat ip.txt)
                 aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 333082661382.dkr.ecr.us-west-1.amazonaws.com
+                ssh -i ~/test-servers-key.pem ubuntu@$PUBLIC_IP ./app_test
+                curl $PUBLIC_IP:8000
+                echo ...
                 ssh -i ~/test-servers-key.pem ubuntu@$PUBLIC_IP sudo kubectl rollout restart deployment project-deployment
                 '''
             }
