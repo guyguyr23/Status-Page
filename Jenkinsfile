@@ -27,7 +27,7 @@ pipeline {
                 '''
                 script{
                 sshagent(['client_server']){
-                sh ' ssh  -o StrictHostKeyChecking=no -l ubuntu $PUBLIC_IP ./app_pull_run.sh ' 
+                sh ' ssh  -o StrictHostKeyChecking=no -l ubuntu $PUBLIC_IP ./home/ubuntu/app_pull_run.sh ' 
                      }
                 }
             }
