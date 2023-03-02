@@ -51,6 +51,14 @@ pipeline {
                 aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 333082661382.dkr.ecr.us-west-1.amazonaws.com
                 ssh -i ~/test-servers-key.pem ubuntu@$PUBLIC_IP /home/ubuntu/app_run_test.sh
                 curl $PUBLIC_IP:8000
+               
+           script {
+                    final String url = "http://$PUBLIC_IP:8000"
+
+                    final String response = sh(script: "curl -s $url", returnStdout: true).trim()
+
+                    echo response
+                } 
                 
                 scp -i ~/test-servers-key.pem config_files/deployment.yml ubuntu@$PUBLIC_IP:/home/ubuntu/kube_config
                 ssh -i ~/test-servers-key.pem ubuntu@$PUBLIC_IP /home/ubuntu/kube_config/jenkins_CD.sh
