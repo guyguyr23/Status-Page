@@ -9,6 +9,16 @@ pipeline {
     }
     stages {
 
+        stage('configure aws') {
+            steps{ 
+                sh '''
+                aws configure set aws_access_key_id ${Access_key}
+                aws configure set aws_secret_access_key ${Secret_key}
+                aws configure set default.region us-west-1
+                '''
+                }
+          }
+        
         stage('Build and deploy to ECR') { 
             steps { 
                 script{
@@ -33,15 +43,7 @@ pipeline {
             }
         }
    
-       stage('configure aws') {
-            steps{ 
-                sh '''
-                aws configure set aws_access_key_id ${Access_key}
-                aws configure set aws_secret_access_key ${Secret_key}
-                aws configure set default.region us-west-1
-                '''
-                }
-          }
+       
           stage('get master node public ip') {
             steps{                  
                 sh '''
