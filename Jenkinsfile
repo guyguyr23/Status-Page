@@ -3,7 +3,7 @@ pipeline {
           environment {
     Secret_key = credentials('Secret_access_key')
     Access_key = credentials('Access_key_ID')
-    build_num = ${env.BUILD_NUMBER}
+    build_num = "${env.BUILD_NUMBER}"
      }
     options {
         skipStagesAfterUnstable()
