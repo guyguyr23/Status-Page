@@ -3,6 +3,7 @@ pipeline {
           environment {
     Secret_key = credentials('Secret_access_key')
     Access_key = credentials('Access_key_ID')
+    build_num = ${env.BUILD_NUMBER}
      }
     options {
         skipStagesAfterUnstable()
@@ -24,7 +25,7 @@ pipeline {
                 script{
                  app = docker.build("status_page_image")
                  docker.withRegistry('https://333082661382.dkr.ecr.us-west-1.amazonaws.com/status_page_image', 'ecr:us-west-1:D1'){ 
-                     app.push("${env.BUILD_NUMBER}")
+                     app.push("$build_num")
                  }
                 }
             }
@@ -49,8 +50,8 @@ pipeline {
                 sh '''
                 PUBLIC_IP=$(cat ip.txt)
                 aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 333082661382.dkr.ecr.us-west-1.amazonaws.com
-                ssh -i ~/test-servers-key.pem ubuntu@$PUBLIC_IP /home/ubuntu/app_test.sh
-                curl $PUBLIC_IP:8000
+                ssh -i ~/test-servers-key.pem ubuntu@$PUBLIC_IP /home/ubuntu/app_test.sh -t $build_num
+               
                
            script {
                     final String url = "http://$PUBLIC_IP:8000"
