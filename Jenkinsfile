@@ -34,7 +34,7 @@ pipeline {
             steps {
                 sh '''
                 PUBLIC_IP=$(aws ec2 describe-instances --instance-ids i-07e9532a4bc363274 --query "Reservations[0].Instances[0].PublicIpAddress" --output text)
-                ssh -i ~/test-servers-key.pem ubuntu@$PUBLIC_IP ./app_pull_run.sh
+                ssh -i ~/task-servers-key.pem ubuntu@$PUBLIC_IP ./app_pull_run.sh
                 '''
                 
             }
