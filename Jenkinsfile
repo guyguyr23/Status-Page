@@ -23,9 +23,9 @@ pipeline {
         stage('Build and deploy to ECR') { 
             steps { 
                 script{
-                 app = docker.build("status_page_image")
+                 app = docker.build("status_page_image:$build_num")
                  docker.withRegistry('https://333082661382.dkr.ecr.us-west-1.amazonaws.com/status_page_image', 'ecr:us-west-1:D1'){ 
-                     app.push("$build_num")
+                     app.push()
                  }
                 }
             }
