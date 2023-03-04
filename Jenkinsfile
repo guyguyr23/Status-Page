@@ -27,6 +27,7 @@ pipeline {
                 docker build -t status_page_image .
                 docker tag status_page_image:latest 333082661382.dkr.ecr.us-west-1.amazonaws.com/status_page_image:$build_num
                 docker push 333082661382.dkr.ecr.us-west-1.amazonaws.com/status_page_image:$build_num
+                '''
                 
                 }
             }
