@@ -29,7 +29,7 @@ pipeline {
                 docker push 333082661382.dkr.ecr.us-west-1.amazonaws.com/status_page_image:$build_num
                 '''
                 
-                }
+                
             }
         }
 
