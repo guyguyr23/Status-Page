@@ -22,11 +22,12 @@ pipeline {
         
         stage('Build and deploy to ECR') { 
             steps { 
-                script{
-                 app = docker.build("status_page_image:$build_num")
-                 docker.withRegistry('https://333082661382.dkr.ecr.us-west-1.amazonaws.com/status_page_image', 'ecr:us-west-1:D1'){ 
-                     app.push()
-                 }
+                sh '''
+                aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 333082661382.dkr.ecr.us-west-1.amazonaws.com
+                docker build -t status_page_image .
+                docker tag status_page_image:latest 333082661382.dkr.ecr.us-west-1.amazonaws.com/status_page_image:$build_num
+                docker push 333082661382.dkr.ecr.us-west-1.amazonaws.com/status_page_image:$build_num
+                
                 }
             }
         }
@@ -50,7 +51,7 @@ pipeline {
                 sh '''
                 PUBLIC_IP=$(cat ip.txt)
                 aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 333082661382.dkr.ecr.us-west-1.amazonaws.com
-                ssh -i ~/test-servers-key.pem root@$PUBLIC_IP ../home/ubuntu/app_test.sh -t $build_num
+                ssh -i ~/test-servers-key.pem ubuntu@$PUBLIC_IP ../home/ubuntu/app_test.sh -t $build_num
                
                
            script {
