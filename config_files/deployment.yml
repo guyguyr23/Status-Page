@@ -5,7 +5,7 @@ metadata:
   labels:
     app: final-project-application
 spec:
-  replicas: 4
+  replicas: 2
   selector:
     matchLabels:
       app: final-project-application
@@ -16,19 +16,10 @@ spec:
     spec:
       containers:
       - name: final-project-cotainer
-        image: 333082661382.dkr.ecr.us-west-1.amazonaws.com/status_page_image:status_page
-        volumeMounts:
-        - name: application-files
-          mountPath: /opt/
+        image: 333082661382.dkr.ecr.us-west-1.amazonaws.com/status_page_image:latest
         ports:
         - containerPort: 8000
       - name: nginx-container
-        image: nginx
-        volumeMounts:
-        - name: application-files
-          mountPath: /
+        image: 333082661382.dkr.ecr.us-west-1.amazonaws.com/nginx_repo:latest
         ports:
         - containerPort: 80
-      volumes:
-      - name: application-files
-        emptyDir: {}
