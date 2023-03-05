@@ -69,7 +69,7 @@ pipeline {
                 
                 /home/ubuntu/curl_responde.sh "
                 
-                scp -i ~/test-servers-key.pem config_files/deployment.yml root@$PUBLIC_IP:/home/ubuntu/kube_config
+                scp -i ~/test-servers-key.pem sudo config_files/deployment.yml ubuntu@$PUBLIC_IP:/home/ubuntu/kube_config
                 ssh -i ~/test-servers-key.pem ubuntu@$PUBLIC_IP /home/ubuntu/kube_config/jenkins_CD.sh
                 '''
                
