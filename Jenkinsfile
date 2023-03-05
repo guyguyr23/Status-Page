@@ -46,6 +46,7 @@ pipeline {
                 stash name: 'ip', includes: 'ip.txt'                          
                }
             }
+        
         stage('connect to the master node') {
             steps{ 
                 unstash 'ip'
@@ -53,7 +54,7 @@ pipeline {
                 PUBLIC_IP=$(cat ip.txt)
                 aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 333082661382.dkr.ecr.us-west-1.amazonaws.com
                 ssh -i ~/test-servers-key.pem ubuntu@$PUBLIC_IP /home/ubuntu/app_test.sh -t $build_num
-               
+                '''
                
            script {
                     final String url = "http://$PUBLIC_IP:8000"
@@ -62,7 +63,7 @@ pipeline {
 
                     echo response
                 } 
-                
+                sh'''
                 scp -i ~/test-servers-key.pem config_files/deployment.yml ubuntu@$PUBLIC_IP:/home/ubuntu/kube_config
                 ssh -i ~/test-servers-key.pem ubuntu@$PUBLIC_IP /home/ubuntu/kube_config/jenkins_CD.sh
                 '''
