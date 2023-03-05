@@ -60,8 +60,7 @@ pipeline {
                 aws configure set default.region us-west-1 
                 aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 333082661382.dkr.ecr.us-west-1.amazonaws.com 
                 docker pull 333082661382.dkr.ecr.us-west-1.amazonaws.com/status_page_image:$build_num 
-                docker stop 333082661382.dkr.ecr.us-west-1.amazonaws.com/status_page_image:$(build_num -1)
-                docker rm 333082661382.dkr.ecr.us-west-1.amazonaws.com/status_page_image:$(build_num -1)
+                docker kill $(docker ps -q)
                 docker run -d -p 8000:8000 333082661382.dkr.ecr.us-west-1.amazonaws.com/status_page_image:$build_num "
                 '''
                
