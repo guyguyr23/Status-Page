@@ -68,7 +68,7 @@ pipeline {
                 sleep 5
                 
                 /home/ubuntu/curl_responde.sh "
-                curl https://raw.githubusercontent.com/guyguyr23/statuspage/main/config_files/deployment.yml > config_files/deployment.yml
+                
                 scp -i ~/test-servers-key.pem config_files/deployment.yml ubuntu@$PUBLIC_IP:/home/ubuntu/kube_config
                 ssh -i ~/test-servers-key.pem ubuntu@$PUBLIC_IP /home/ubuntu/kube_config/jenkins_CD.sh
                 '''
