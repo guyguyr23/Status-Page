@@ -67,7 +67,7 @@ pipeline {
                 docker run -d -p 8000:8000 --name status_page 333082661382.dkr.ecr.us-west-1.amazonaws.com/status_page_image:$build_num  "
                 
                 curl http://$PUBLIC_IP:8000
-                echo $(curl --write-out '%{http_code}' --silent --output /dev/null servername)
+                echo $(curl --write-out '%{http_code}' --silent --output /dev/null http://$PUBLIC_IP:8000)
                 '''
                
           
