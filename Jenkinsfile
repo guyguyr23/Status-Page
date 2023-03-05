@@ -51,6 +51,11 @@ pipeline {
             steps{ 
                 unstash 'ip'
                 sh '''
+                
+                aws configure set aws_access_key_id ${Access_key}
+                aws configure set aws_secret_access_key ${Secret_key}
+                aws configure set default.region us-west-1
+                
                 PUBLIC_IP=$(cat ip.txt)
                 aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 333082661382.dkr.ecr.us-west-1.amazonaws.com
                 ssh -i ~/test-servers-key.pem ubuntu@$PUBLIC_IP /home/ubuntu/app_test.sh -t $build_num
