@@ -53,11 +53,12 @@ pipeline {
                 sh '''
                 PUBLIC_IP=$(cat ip.txt)
                 
-                aws configure set aws_access_key_id ${Access_key}
-                aws configure set aws_secret_access_key ${Secret_key}
-                aws configure set default.region us-west-1
                 
-                ssh -i ~/test-servers-key.pem ubuntu@$PUBLIC_IP aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 333082661382.dkr.ecr.us-west-1.amazonaws.com \
+                
+                ssh -i ~/test-servers-key.pem ubuntu@$PUBLIC_IP aws configure set aws_access_key_id ${Access_key} \
+                && aws configure set aws_secret_access_key ${Secret_key} \ 
+                && aws configure set default.region us-west-1 \ 
+                && aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 333082661382.dkr.ecr.us-west-1.amazonaws.com \
                 && docker pull 333082661382.dkr.ecr.us-west-1.amazonaws.com/status_page_image:$build_num \
                 && docker kill $(docker ps -q) \
                 && docker run -d -p 8000:8000 333082661382.dkr.ecr.us-west-1.amazonaws.com/status_page_image:$build_num 
