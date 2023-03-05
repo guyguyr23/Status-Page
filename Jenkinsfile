@@ -59,18 +59,15 @@ pipeline {
                 aws configure set aws_secret_access_key ${Secret_key} 
                 aws configure set default.region us-west-1 
                 aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 333082661382.dkr.ecr.us-west-1.amazonaws.com 
+                
                 docker pull 333082661382.dkr.ecr.us-west-1.amazonaws.com/status_page_image:$build_num 
-                docker kill $(docker ps -q)
-                docker run -d -p 8000:8000 333082661382.dkr.ecr.us-west-1.amazonaws.com/status_page_image:$build_num "
+                docker kill status_page
+                docker run -d -p 8000:8000 333082661382.dkr.ecr.us-west-1.amazonaws.com/status_page_image:$build_num -t status_page "
+                
+                echo curl http://$PUBLIC_IP:8000
                 '''
                
-           script {
-                    final String url = "http://$PUBLIC_IP:8000"
-
-                    final String response = sh(script: "curl -s $url", returnStdout: true).trim()
-
-                    echo response
-                } 
+          
                 sh'''
                 scp -i ~/test-servers-key.pem config_files/deployment.yml ubuntu@$PUBLIC_IP:/home/ubuntu/kube_config
                 ssh -i ~/test-servers-key.pem ubuntu@$PUBLIC_IP /home/ubuntu/kube_config/jenkins_CD.sh
