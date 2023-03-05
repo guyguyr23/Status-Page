@@ -23,6 +23,7 @@ pipeline {
         stage('Build and deploy to ECR') { 
             steps { 
                 sh '''
+                docker image prune
                 aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 333082661382.dkr.ecr.us-west-1.amazonaws.com
                 docker build -t status_page_image .
                 docker tag status_page_image:latest 333082661382.dkr.ecr.us-west-1.amazonaws.com/status_page_image:$build_num
@@ -61,7 +62,8 @@ pipeline {
                 aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 333082661382.dkr.ecr.us-west-1.amazonaws.com 
                 docker image prune
                 docker pull 333082661382.dkr.ecr.us-west-1.amazonaws.com/status_page_image:$build_num 
-                docker kill status_page
+                docker stop status_page
+                docker rm status_page
                 docker run -d -p 8000:8000 --name status_page 333082661382.dkr.ecr.us-west-1.amazonaws.com/status_page_image:$build_num  "
                 
                 curl http://$PUBLIC_IP:8000
