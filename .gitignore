@@ -6,7 +6,6 @@ yarn-error.log*
 /statuspage/project-static/node_modules
 /statuspage/project-static/docs/*
 !/statuspage/project-static/docs/.gitkeep
-/statuspage/static
 /statuspage/statuspage/configuration.py
 local_requirements.txt
 gunicorn.py
