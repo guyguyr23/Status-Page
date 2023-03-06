@@ -13,10 +13,7 @@ pipeline {
      }
 
 
-    options {
-        skipStagesAfterUnstable()
-    }
-
+  
 
     stages {
 
