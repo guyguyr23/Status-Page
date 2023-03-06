@@ -8,7 +8,7 @@ pipeline {
     Build_num = "${env.BUILD_NUMBER}"
     Address_ecr = '333082661382.dkr.ecr.us-west-1.amazonaws.com'
     Flask_image = 'status_page_image'
-    Ngnix_image = 'nginx_repo'
+{Ngnix_image = 'nginx_repo'
     
      }
 
@@ -44,14 +44,14 @@ pipeline {
 
                 aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin ${Address_ecr}
 
-                docker build -t $(Flask_image) .
-                docker tag $(Flask_image):latest $(Address_ecr)/$(Flask_image):$Build_num
-                docker push $(Address_ecr)/$(Flask_image):$Build_num
+                docker build -t ${Flask_image} .
+                docker tag ${Flask_image}:latest ${Address_ecr}/${Flask_image}:$Build_num
+                docker push ${Address_ecr}/${Flask_image}:$Build_num
 
                 
-                docker build -s nginx_dockerfile -t $(Ngnix_image) .
-                docker tag $(Ngnix_image):latest $(Address_ecr)/$(Ngnix_image):$Build_num
-                docker push $(Address_ecr)/$(Ngnix_image):$Build_num
+                docker build -s nginx_dockerfile -t ${Ngnix_image} .
+                docker tag ${Ngnix_image}:latest ${Address_ecr}/${Ngnix_image}:$Build_num
+                docker push ${Address_ecr}/${Ngnix_image}:$Build_num
 
                 docker images prune
                 '''
@@ -66,7 +66,7 @@ pipeline {
 
 
                 sh '''
-                PUBLIC_IP=$(aws ec2 describe-instances --instance-ids i-0d2817565eeac7442 --query "Reservations[0].Instances[0].PublicIpAddress" --output text)
+                PUBLIC_IP=${aws ec2 des}ribe-instances --instance-ids i-0d2817565eeac7442 --query "Reservations[0].Instances[0].PublicIpAddress" --output text)
                 echo $PUBLIC_IP > ip.txt
                 ssh-keyscan -H $PUBLIC_IP >> ~/.ssh/known_hosts
                 '''
@@ -93,18 +93,18 @@ pipeline {
                 aws configure set aws_secret_access_key ${Secret_key} 
                 aws configure set default.region us-west-1 
         
-                aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin $(Address_ecr)
+                aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin ${Address_ecr}
                 
-                docker pull $(Address_ecr)/$(Flask_image):$Build_num 
+                docker pull ${Address_ecr}/${Flask_image}:$Build_num 
                 docker stop status_page
                 docker rm status_page
-                docker run -d -p 8000:8000 --name status_page $(Address_ecr)/$(Flask_image):$Build_num  
+                docker run -d -p 8000:8000 --name status_page ${Address_ecr}/${Flask_image}:$Build_num  
                 
 
-                docker pull $(Address_ecr)/$(Ngnix_image):$Build_num 
+                docker pull ${Address_ecr}/${Ngnix_image}:$Build_num 
                 docker stop ngnix
                 docker rm ngnix
-                docker run -d -p 80:80 --name ngnix $(Address_ecr)/$(Ngnix_image):$Build_num  
+                docker run -d -p 80:80 --name ngnix ${Address_ecr}/${Ngnix_image}:$Build_num  
 
                 docker images prune
                 sleep 5
