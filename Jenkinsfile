@@ -41,9 +41,9 @@ pipeline {
 
                 aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin ${Address_ecr}
 
-                docker build -t ${Flask_image} .
-                docker tag ${Flask_image}:latest ${Address_ecr}/${Flask_image}:$Build_num
-                docker push ${Address_ecr}/${Flask_image}:$Build_num
+              #  docker build -t ${Flask_image} .
+               # docker tag ${Flask_image}:latest ${Address_ecr}/${Flask_image}:$Build_num
+                #docker push ${Address_ecr}/${Flask_image}:$Build_num
 
                 
                 docker build -f nginx_dockerfile -t ${Ngnix_image} .
@@ -92,10 +92,10 @@ pipeline {
         
                 aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin ${Address_ecr}
                 
-                docker pull ${Address_ecr}/${Flask_image}:$Build_num 
-                docker stop status_page
-                docker rm status_page
-                docker run -d -p 8000:8000 --name status_page ${Address_ecr}/${Flask_image}:$Build_num  
+               # docker pull ${Address_ecr}/${Flask_image}:$Build_num 
+               # docker stop status_page
+               # docker rm status_page
+               # docker run -d -p 8000:8000 --name status_page ${Address_ecr}/${Flask_image}:$Build_num  
                 
 
                 docker pull ${Address_ecr}/${Ngnix_image}:$Build_num 
@@ -106,7 +106,7 @@ pipeline {
                 docker images prune
                 sleep 5
                 
-                /home/ubuntu/curl_responde.sh "
+              #  /home/ubuntu/curl_responde.sh "
                 '''
                 
             }
@@ -127,9 +127,9 @@ pipeline {
                 aws configure set aws_access_key_id ${Access_key} 
                 aws configure set aws_secret_access_key ${Secret_key} 
                 aws configure set default.region us-west-1
-                curl https://raw.githubusercontent.com/guyguyr23/statuspage/main/config_files/deployment.yml > /home/ubuntu/kube_config/deployment.yml
-                curl https://raw.githubusercontent.com/guyguyr23/statuspage/main/config_files/service.yml > /home/ubuntu/kube_config/service.yml
-                /home/ubuntu/kube_config/jenkins_CD.sh -t $Build_num"
+             #   curl https://raw.githubusercontent.com/guyguyr23/statuspage/main/config_files/deployment.yml > /home/ubuntu/kube_config/deployment.yml
+             #   curl https://raw.githubusercontent.com/guyguyr23/statuspage/main/config_files/service.yml > /home/ubuntu/kube_config/service.yml
+             #   /home/ubuntu/kube_config/jenkins_CD.sh -t $Build_num"
                 '''
 
 
