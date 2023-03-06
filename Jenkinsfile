@@ -129,7 +129,7 @@ pipeline {
                 aws configure set default.region us-west-1
                 curl https://raw.githubusercontent.com/guyguyr23/statuspage/main/config_files/deployment.yml > /home/ubuntu/kube_config/deployment.yml
                 curl https://raw.githubusercontent.com/guyguyr23/statuspage/main/config_files/service.yml > /home/ubuntu/kube_config/service.yml
-                /home/ubuntu/kube_config/jenkins_CD.sh"
+                /home/ubuntu/kube_config/jenkins_CD.sh -t $Build_num"
                 '''
 
 
