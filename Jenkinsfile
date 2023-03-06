@@ -49,7 +49,7 @@ pipeline {
                 docker push ${Address_ecr}/${Flask_image}:$Build_num
 
                 
-                docker build -s nginx_dockerfile -t ${Ngnix_image} .
+                docker build -f nginx_dockerfile -t ${Ngnix_image} .
                 docker tag ${Ngnix_image}:latest ${Address_ecr}/${Ngnix_image}:$Build_num
                 docker push ${Address_ecr}/${Ngnix_image}:$Build_num
 
