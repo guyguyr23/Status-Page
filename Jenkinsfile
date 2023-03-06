@@ -8,7 +8,7 @@ pipeline {
     Build_num = "${env.BUILD_NUMBER}"
     Address_ecr = '333082661382.dkr.ecr.us-west-1.amazonaws.com'
     Flask_image = 'status_page_image'
-{Ngnix_image = 'nginx_repo'
+    Ngnix_image = 'nginx_repo'
     
      }
 
