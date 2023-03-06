@@ -101,7 +101,7 @@ pipeline {
                 docker pull ${Address_ecr}/${Ngnix_image}:$Build_num 
                 docker stop ngnix
                 docker rm ngnix
-                docker run -d -p 80:80 --name ngnix ${Address_ecr}/${Ngnix_image}:$Build_num  
+                docker run -d --net=host -p 80:80 --name ngnix ${Address_ecr}/${Ngnix_image}:$Build_num  
 
                 docker images prune
                 sleep 5
