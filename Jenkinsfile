@@ -42,7 +42,7 @@ pipeline {
 
                 sh '''
 
-                aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin $(Address_ecr)
+                aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin ${Address_ecr}
 
                 docker build -t $(Flask_image) .
                 docker tag $(Flask_image):latest $(Address_ecr)/$(Flask_image):$Build_num
