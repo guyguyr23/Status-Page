@@ -5,7 +5,7 @@ metadata:
   labels:
     app: final-project-application
 spec:
-  replicas: 2
+  replicas: 4
   selector:
     matchLabels:
       app: final-project-application
